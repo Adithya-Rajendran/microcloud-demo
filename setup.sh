@@ -12,7 +12,7 @@ lxc storage list | grep -q "^| $STORAGE_POOL " || {
 lxc storage set $STORAGE_POOL volume.size 10GiB
 
 # Create local storage volumes
-for i in {1..4}; do
+for i in {1..3}; do
   lxc storage volume list $STORAGE_POOL | grep -q "^| local$i " || {
     lxc storage volume create $STORAGE_POOL local$i --type block
   }
@@ -98,7 +98,6 @@ initialize_vm() {
 initialize_vm "micro1" "local1" "remote1" &
 initialize_vm "micro2" "local2" "remote2" &
 initialize_vm "micro3" "local3" "remote3" &
-#initialize_vm "micro4" "local4" &
 
 wait
 
@@ -170,8 +169,14 @@ echo "Initializing Microcloud"
 lxc file push my-microcloud-init.yaml micro1/root/my-microcloud-init.yaml
 lxc exec micro1 -- bash -c "cat /root/my-microcloud-init.yaml | microcloud init --preseed"
 
-lxc file push certs/lxd-ui.crt micro1/root/lxd-ui.crt
-lxc exec micro1 -- bash -c "lxc config trust add /root/lxd-ui.crt"
+if [ -f "certs/lxd-ui.crt" ]; then
+  lxc file push certs/lxd-ui.crt micro1/root/lxd-ui.crt
+  lxc exec micro1 -- bash -c "lxc config trust add /root/lxd-ui.crt"
+else
+  echo "File certs/lxd-ui.crt does not exist. Skipping certificate push and trust add."
+fi
+
+lxc exec micro1 -- bash -c "echo \"Access Microcloud UI: \$(lxc cluster list | grep -m 1 -oP 'https://\\S+')\""
 
 # Can run to auto populate some images
 # lxc exec micro1 -- bash -c "lxc image copy ubuntu:jammy --vm local: --alias ubuntu-jammy"

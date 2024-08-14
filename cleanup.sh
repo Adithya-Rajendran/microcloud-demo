@@ -5,7 +5,7 @@ source config.sh
 echo "Starting cleanup process..."
 
 echo "Stopping VMs..."
-for vm in micro1 micro2 micro3 micro4; do
+for vm in micro1 micro2 micro3; do
   if lxc info $vm &> /dev/null; then
     lxc stop $vm
   else
@@ -14,7 +14,7 @@ for vm in micro1 micro2 micro3 micro4; do
 done
 
 echo "Detaching and deleting local storage volumes..."
-for i in {1..4}; do
+for i in {1..3}; do
   if lxc storage volume list $STORAGE_POOL | grep -q "local$i"; then
     lxc storage volume detach $STORAGE_POOL local$i micro$i
 
@@ -37,7 +37,7 @@ for i in {1..3}; do
 done
 
 echo "Deleting VMs..."
-for vm in micro1 micro2 micro3 micro4; do
+for vm in micro1 micro2 micro3; do
   if lxc info $vm &> /dev/null; then
     lxc delete $vm
   else
