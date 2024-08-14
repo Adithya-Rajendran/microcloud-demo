@@ -59,9 +59,8 @@ To set up the MicroCloud environment, run the `setup.sh` script:
 
 4. **MicroCloud Initialization:**
 
-    - Generates a my-microcloud-init.yaml file based on the configured IPs and network settings.
+    - Generates a `my-microcloud-init.yaml` file based on the configured IPs and network settings.
     - Pushes the YAML file to the primary VM (micro1) and initializes the MicroCloud using the `microcloud init --preseed` command.
-    - Adds SSL certificates to the LXD configuration.
 
 ## Clean Up
 
