@@ -72,19 +72,11 @@ initialize_vm() {
   lxc init ubuntu:22.04 $vm_name --vm --config limits.cpu=4 --config limits.memory=4GiB --config user.user-data="$cloud_init"
 
   lxc storage volume attach $STORAGE_POOL $local_volume $vm_name
-
-  if [ -n "$remote_volume" ]; then
-    lxc storage volume attach $STORAGE_POOL $remote_volume $vm_name
-  fi
+  lxc storage volume attach $STORAGE_POOL $remote_volume $vm_name
 
   lxc config device add $vm_name eth1 nic network=$NETWORK_NAME name=eth1
 
   lxc start $vm_name
-
-  echo "Waiting for $vm_name to fully start..."
-  while [ "$(lxc list $vm_name -c s --format csv)" != "RUNNING" ]; do
-    sleep 2
-  done
 
   echo "Waiting for LXD agent on $vm_name to start..."
   while ! lxc exec $vm_name -- ls / > /dev/null 2>&1; do
@@ -101,7 +93,7 @@ initialize_vm "micro3" "local3" "remote3" &
 
 wait
 
-
+echo "Retrieving IPv4 address for micro1..."
 micro1_ip=""
 while [ -z "$micro1_ip" ]; do
   micro1_ip=$(lxc list micro1 -c 4 | grep enp5s0 | awk '{print $2}')
