@@ -98,6 +98,12 @@ bash setup.sh
     - Generates a `my-microcloud-init.yaml` file based on the configured IPs and network settings.
     - Pushes the YAML file to the primary VM (micro1) and initializes the MicroCloud using the `microcloud init --preseed` command.
 
+## Get the IP post install
+
+```bash
+lxc exec micro1 -- bash -c "echo \"Access Microcloud UI: \$(lxc cluster list | grep -m 1 -oP 'https://\\S+')\""
+```
+
 ## Clean Up
 
 To remove the MicroCloud setup, you can run the cleanup.sh script, which will remove all created resources (VMs, storage, networks).
