@@ -17,7 +17,7 @@ Before running the script, ensure that you have the following installed and conf
 lxd init
 ```
 
-Give atleast 30 GiB for the loop device storage.
+Give atleast 40 GiB for the loop device storage.
 
 ## Project Structure
 
