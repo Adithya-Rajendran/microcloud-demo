@@ -38,7 +38,7 @@ Update the `config.sh` file with your environment-specific settings, including t
 To set up the MicroCloud environment, run the `setup.sh` script:
 
 ```bash
-./setup.sh
+bash setup.sh
 ```
 
 #### What the Script Does
@@ -67,5 +67,5 @@ To set up the MicroCloud environment, run the `setup.sh` script:
 To remove the MicroCloud setup, you can run the cleanup.sh script, which will remove all created resources (VMs, storage, networks).
 
 ```bash
-./cleanup.sh
+bas cleanup.sh
 ```
