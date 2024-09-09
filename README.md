@@ -1,23 +1,54 @@
 # MicroCloud Demo Project
 
-This script automates the setup of a MicroCloud environment using LXD VMs. The Bash script initializes storage, networks, and VMs, configures the network settings, and sets up the MicroCloud using cloud-init.
+This project contains a script to automate the setup of a MicroCloud environment using LXD virtual machines (VMs). The script initializes storage, configures networks, and sets up VMs using cloud-init, making the deployment quick and easy.
 
 ## Prerequisites
 
-Before running the script, ensure that you have the following installed and configured on your system:
+Before running the script, ensure that the following components are installed and configured on your system:
 
-- LXD (version 5.0 or later)
-- ZFS (for storage pool management)
-- Bash shell
-- Certificates for LXD UI (`lxd-ui.crt`, `lxd-ui.pfx`) (OPTIONAL: Can be generated from the UI later)
+### 1. **LXD (version 5.0 or later)**
 
-### Initialize LXD
+- To install LXD, use the `snap` command.
 
 ```bash
+sudo snap install lxd
+```
+
+- After installation, initialize LXD with the `lxd init` command and allocate at least 40 GiB for the loop device storage.
+
+```bsah
 lxd init
 ```
 
-Give atleast 40 GiB for the loop device storage.
+### 2. **ZFS (for storage pool management)**
+
+- On Ubuntu, install ZFS by updating your package list and installing `zfsutils-linux`.
+
+```bsah
+sudo apt update
+sudo apt install zfsutils-linux
+```
+
+### 3. **Bash Shell**
+
+- Ensure you have a Bash shell installed. You can check your Bash version to verify it is installed. Most Linux distributions come with Bash pre-installed.
+
+You can verify it by running:
+
+```bsah
+bash --version
+```
+
+### 4. **Certificates for LXD UI Login (Optional)**
+
+- Generate both `.crt` and `.pem` files for secure login to the LXD UI using OpenSSL.
+
+```bash
+mkdir certs
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -out lxd-ui.crt
+```
+
+- Alternatively, certificates can be generated from the LXD UI after the setup is complete.
 
 ## Project Structure
 
@@ -67,5 +98,5 @@ bash setup.sh
 To remove the MicroCloud setup, you can run the cleanup.sh script, which will remove all created resources (VMs, storage, networks).
 
 ```bash
-bas cleanup.sh
+bash cleanup.sh
 ```
