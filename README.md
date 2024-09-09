@@ -6,7 +6,7 @@ This project contains a script to automate the setup of a MicroCloud environment
 
 Before running the script, ensure that the following components are installed and configured on your system:
 
-### 1. **LXD (version 5.0 or later)**
+#### 1. **LXD (version 5.0 or later)**
 
 - To install LXD, use the `snap` command.
 
@@ -20,7 +20,7 @@ sudo snap install lxd
 lxd init
 ```
 
-### 2. **ZFS (for storage pool management)**
+#### 2. **ZFS (for storage pool management)**
 
 - On Ubuntu, install ZFS by updating your package list and installing `zfsutils-linux`.
 
@@ -29,7 +29,7 @@ sudo apt update
 sudo apt install zfsutils-linux
 ```
 
-### 3. **Bash Shell**
+#### 3. **Bash Shell**
 
 - Ensure you have a Bash shell installed. You can check your Bash version to verify it is installed. Most Linux distributions come with Bash pre-installed.
 
@@ -39,7 +39,7 @@ You can verify it by running:
 bash --version
 ```
 
-### 4. **Certificates for LXD UI Login (Optional)**
+#### 4. **Certificates for LXD UI Login (Optional)**
 
 - Generate both `.crt` and `.pem` files for secure login to the LXD UI using OpenSSL.
 
@@ -62,7 +62,12 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -out lxd-ui.crt
 
 ### Step 1: Configure Environment
 
-Update the `config.sh` file with your environment-specific settings, including the storage pool name, network name, and token for `ubuntu_pro`.
+Update the `config.sh` file with your environment-specific settings.
+Ensure the following are set:
+
+- Storage Pool Name
+- Network Name
+- Ubuntu Pro Token
 
 ### Step 2: Run the Setup Script
 
