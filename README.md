@@ -1,6 +1,6 @@
 # MicroCloud Demo Project
 
-This project contains a script to automate the setup of a MicroCloud environment using LXD virtual machines (VMs). The script initializes storage, configures networks, and sets up VMs using cloud-init, making the deployment quick and easy.
+This project contains a script to automate the setup of a MicroCloud environment on FIPS enabled hosts using LXD virtual machines (VMs). The script initializes storage, configures networks, and sets up VMs using cloud-init, making the deployment quick and easy.
 
 ## Prerequisites
 
