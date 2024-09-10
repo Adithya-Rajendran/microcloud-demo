@@ -60,6 +60,12 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -out lxd-ui.crt
 
 ## Usage
 
+### Step 0: Clone the repo
+
+```bash
+git clone https://github.com/Adithya-Rajendran/microcloud-demo
+```
+
 ### Step 1: Configure Environment
 
 Update the `config.sh` file with your environment-specific settings.
